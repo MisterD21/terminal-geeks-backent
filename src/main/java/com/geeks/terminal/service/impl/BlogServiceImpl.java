@@ -58,7 +58,7 @@ public class BlogServiceImpl implements BlogService {
             Files.copy(source, destinationDir.resolve(fileName));
             blog.setImage(requestMap.get("image"));
         } catch (IOException e) {
-        	blog.setImage(requestMap.get(null));
+        	blog.setImage("/images/blog/quco.jpeg");
         }
 		
 		
@@ -76,7 +76,7 @@ public class BlogServiceImpl implements BlogService {
 	public ResponseEntity<List<Blog>> getAllPost() {
 		try {
 
-			List<Blog> allPost = blogRepository.findAll();
+			List<Blog> allPost = blogRepository.findAllByOrderByIdDesc();
 
 			return new ResponseEntity<List<Blog>>(allPost, HttpStatus.OK);
 		} catch (Exception e) {

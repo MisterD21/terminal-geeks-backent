@@ -38,7 +38,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		if(request.getServletPath().matches("/user/login|/user/signup"
 				+ "|/user/forgetpassword"
 				+ "|/subscriber/subscribe"
-				+ "|/blog/post")) {
+				+ "|/blog/post"
+				+ "|/blog/post/get")) {
 			filterChain.doFilter(request, response);
 		}else {
 			String requestTokenHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
@@ -60,8 +61,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 					SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
 				}
 			}
+			filterChain.doFilter(request, response);
 		}
-		filterChain.doFilter(request, response);
 	}
 	
 	public boolean isAdmin() {
